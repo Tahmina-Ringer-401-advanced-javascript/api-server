@@ -1,20 +1,33 @@
-# api-server
+# API Server Lab04
 
 by Tahmina Ringer
 
+## Links/Resources 
+
+- [GitHub PR](https://github.com/Tahmina-Ringer-401-advanced-javascript/api-server/pull/6)
+- [Heroku](https://dashboard.heroku.com/apps/tringer-api-server2)
+
 Basic express server using modularization, middleware MongoDB, Mongoose and tests and deploying to heroku.
 
-## heroku
+## Setup
 
-Not yet deployed
+- **.env Requirements**
+  - PORT=3000
+  - MONGOOSE_URI=mongodb://localhost:27017/flowers
 
-- [heroku-deployment]()
-- [heroku-activity-deployment]()
+## Running the App
 
-## Github
+- npm start or nodemon
 
-- [github pullrequests](https://github.com/Tahmina-Ringer-401-advanced-javascript/api-server/pull/1)
+- **Endpoint**
+  - used postman and in terminal HTTP pie 
 
-## .env
-- PORT 3000
-- MONGOOSE_URI=mongodb://localhost:27017/flowers
+## Test
+
+- run command `npm test`
+
+## UML 
+
+- created with AWW - A Web Whiteboard
+- [UML](UML.png)
+
