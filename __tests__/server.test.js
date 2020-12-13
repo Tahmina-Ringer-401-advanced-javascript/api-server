@@ -1,6 +1,6 @@
 'use strict';
 
-const { server } = require('../src/server-phase3.js');
+const { server } = require('../src/server');
 const supertest = require('supertest');
 const mockRequest = supertest(server);
 
