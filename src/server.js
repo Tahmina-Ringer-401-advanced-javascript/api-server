@@ -16,9 +16,9 @@ app.use(logger);
 app.use(flowerRoute);
 app.use(babyAnimalRoute);
 
-app.get('/', (req, res) => {
-  res.status(200).send('Hello World');
-});
+// app.get('/', (req, res) => {
+//   res.status(200).send('Hello World');
+// });
 
 app.use(errorHandler);
 app.use('*', notFoundHandler);
