@@ -1,10 +1,9 @@
 'use strict';
 
 const express = require('express');
-// const { model } = require('../models/flowers');
-const DataCollection = require('../models/data-collection-class');
+const FlowerCollection = require('../models/flower-collection');
 const Flowers = require('../models/flowers');
-const flower = new DataCollection(Flowers);
+const flower = new FlowerCollection(Flowers);
 
 const router = express.Router();
 
@@ -12,46 +11,37 @@ const router = express.Router();
 router.get('/flower', getFlower);
 router.get('/flower/:id', getOneFlower);
 router.post('/flower', createFlower);
-router.put('/flower/:id', updateFlower);
+router.put('/flower/:id', updateFlowers);
 router.delete('/flower/:id', deleteFlower);
 
 
-function getFlower(req, res) {
-  const allFlowers = flower.get();
+async function getFlower(req, res) {
+  const allFlowers = await flower.get();
   res.status(200).json(allFlowers);
 }
 
-function getOneFlower(req, res) {
+async function getOneFlower(req, res) {
   const id = req.params.id;
-  flower.get(id)
-    .then(result => {
-      res.status(200).json(result);
-    });
+  await flower.get(id);
+  res.status(200).json(id);
 }
 
-function createFlower(req, res) {
+async function createFlower(req, res) {
+  const newFlower = await flower.create(req.body);
+  res.status(200).json(newFlower);
+}
+
+async function updateFlowers(req, res) {
+  const id = req.params.id;
   const obj = req.body;
-  flower.create(obj)
-    .then(result => {
-      res.status(200).json(result);
-    });
+  const updateFlower = await flower.update(id, obj);
+  res.status(200).json(updateFlower); 
 }
 
-function updateFlower(req, res) {
+async function deleteFlower(req, res) {
   const obj = req.params.id;
-  flower.update(obj, req.body);
-  flower.put(obj)
-    .then(result => {
-      res.status(200).json(result);
-    });
+  await flower.delete(obj);
+  res.status(200).json(obj);
 }
 
-function deleteFlower(req, res) {
-  const obj = req.params.id;
-  flower.delete(obj);
-  flower.delete(obj)
-    .then(result => {
-      res.status(200).json(result);
-    });
-}
 module.exports = router;
