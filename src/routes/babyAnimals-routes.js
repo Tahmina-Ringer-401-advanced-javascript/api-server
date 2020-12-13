@@ -1,45 +1,46 @@
-// 'use strict';
+'use strict';
 
-// const express = require('express');
-// const BabyAnimal = require('../models/babyAnimals');
-// const animal = new BabyAnimal();
+const express = require('express');
+const BabyAnimalCollection = require('../models/babyAnimal-collection');
+const BabyAnimal = require('../models/babyAnimals');
+const animal = new BabyAnimalCollection(BabyAnimal);
 
-// const router = express.Router();
+const router = express.Router();
 
-// //RESTful routes
-// router.get('/animal', getAnimal);
-// router.get('/animal/:id', getOneAnimal);
-// router.post('/animal', createAnimal);
-// router.put('/animal/:id', updateAnimal);
-// router.delete('/animal/:id', deleteAnimal);
+//RESTful routes
+router.get('/animal', getAnimal);
+router.get('/animal/:_id', getOneAnimal);
+router.post('/animal', createAnimal);
+router.put('/animal/:_id', updateAnimals);
+router.delete('/animal/:_id', deleteAnimal);
 
 
-// function getAnimal(req, res) {
-//   const allAnimals = animal.get();
-//   res.status(200).json(allAnimals);
-// }
+async function getAnimal(req, res) {
+  const allAnimals = await animal.get();
+  res.status(200).json(allAnimals);
+}
 
-// function getOneAnimal(req, res) {
-//   const id = req.params.id;
-//   const oneAnimal = animal.get(id);
-//   res.status(200).json(oneAnimal);
-// }
+async function getOneAnimal(req, res) {
+  const id = req.params._id;
+  await animal.get(id);
+  res.status(200).json(id);
+}
 
-// function createAnimal(req, res) {
-//   const obj = req.body;
-//   const newAnimal = animal.create(obj);
-//   res.status(200).json(newAnimal);
-// }
+async function createAnimal(req, res) {
+  const newAnimal = await animal.create(req.body);
+  res.status(200).json(newAnimal);
+}
 
-// function updateAnimal(req, res) {
-//   const obj = req.body;
-//   const id = req.params.id;
-//   const updateAnimal = animal.update(id, obj);
-//   res.status(200).json(updateAnimal);
-// }
+async function updateAnimals(req, res) {
+  const id = req.params._id;
+  const updateAnimal = await animal.update(id, req.body);
+  res.status(200).json(updateAnimal);
+}
 
-// function deleteAnimal(req, res) {
-//   res.status(200).json('deleting baby animal');
-// }
+async function deleteAnimal(req, res) {
+  const id = req.params._id;
+  await animal.delete(id);
+  res.status(200).json('Deleteing baby animal');
+}
 
-// module.exports = router;
+module.exports = router;
